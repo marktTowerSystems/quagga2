@@ -615,6 +615,13 @@ export interface QuaggaJSStatic {
     imageWrapper: ImageWrapper
   ): Promise<void>;
 
+  init(
+    config: QuaggaJSConfigObject,
+    callback: (err: any) => void,
+    imageWrapper: ImageWrapper | undefined,
+    stream: MediaStream
+  ): Promise<void>;
+
   /**
    * When the library is initialized, the start()
    * method starts the video-stream and begins locating and decoding the

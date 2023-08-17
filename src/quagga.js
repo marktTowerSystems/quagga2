@@ -19,8 +19,8 @@ const QuaggaJSStaticInterface = {
     config,
     cb,
     imageWrapper,
-    quaggaInstance = instance,
-    stream = undefined
+    stream = undefined,
+    quaggaInstance = instance
   ) {
     let promise;
     if (!cb) {
