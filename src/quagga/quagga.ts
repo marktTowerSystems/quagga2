@@ -105,7 +105,10 @@ export default class Quagga {
   };
 
   initInputStream(callback: (err?: Error) => void, stream?: MediaStream): void {
+    console.log("TESTING SUPPLY STREAM");
+
     if (!this.context.config || !this.context.config.inputStream) {
+      console.log("RETURNED EARLY");
       return;
     }
     const { type: inputType, constraints } = this.context.config.inputStream;
@@ -117,6 +120,7 @@ export default class Quagga {
 
     if (inputType === "LiveStream" && video) {
       if (stream) {
+        console.log("SUPPLYING STREAM");
         CameraAccess.supplyStream(video, stream)
           .then(() => inputStream.trigger("canrecord"))
           .catch((err) => callback(err));
