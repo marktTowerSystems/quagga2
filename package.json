@@ -82,7 +82,8 @@
     "watch": "npx cross-env BUILD_ENV=development webpack --watch",
     "lint": "eslint src",
     "upgrade-deps": "npx npm-check-updates --doctor",
-    "clean": "shopt -s extglob && rm -rf !(dist|lib|types|LICENSE|README.md|cypress.config.ts|package.json|tsconfig.json)"
+    "clean": "node -e \"if (process.env.INIT_CWD === undefined){process.exit(1)} \" || npx clean:distributed",
+    "clean:distributed": "npx rimraf node_modules .github configs cypress doc example src test .babelrc .eslintrc .gitignore .ncurc.json .npmignore .snyk docker-compose.yml Dockerfile package-lock.json server.pem simple-https-server.py"
   },
   "repository": {
     "type": "git",
