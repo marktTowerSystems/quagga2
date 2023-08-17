@@ -123,7 +123,7 @@ export default class Quagga {
       if (stream) {
         console.log("SUPPLYING STREAM");
         CameraAccess.supplyStream(video, stream)
-          // .then(() => inputStream.trigger("canrecord"))
+          .then(() => inputStream.trigger("canrecord"))
           .catch((err) => callback(err));
       } else {
         CameraAccess.request(video, constraints)
