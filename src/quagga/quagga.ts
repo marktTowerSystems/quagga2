@@ -75,6 +75,7 @@ export default class Quagga {
 
   canRecord = (callback: () => void): void => {
     if (!this.context.config) {
+      this.context.inputStream;
       return;
     }
     BarcodeLocator.checkImageConstraints(
@@ -127,6 +128,8 @@ export default class Quagga {
       );
     }
 
+    this.context.inputStream = inputStream;
+
     if (inputType === "LiveStream" && video) {
       console.log("README stream", stream);
       if (stream) {
@@ -146,8 +149,6 @@ export default class Quagga {
           .catch((err) => callback(err));
       }
     }
-
-    this.context.inputStream = inputStream;
   }
 
   getBoundingBoxes(): Array<Array<number>> | null {

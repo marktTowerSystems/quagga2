@@ -26,6 +26,7 @@ export default function setupInputStream(
           viewport.appendChild(video);
         }
       }
+
       return {
         video,
         inputStream: inputStreamFactory.createLiveStream(
