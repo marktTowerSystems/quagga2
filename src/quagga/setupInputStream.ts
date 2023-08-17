@@ -5,7 +5,8 @@ import type { InputStreamType } from "../../type-definitions/quagga.d";
 export default function setupInputStream(
   type: InputStreamType = "LiveStream",
   viewport: Element | null,
-  inputStreamFactory: InputStreamFactory
+  inputStreamFactory: InputStreamFactory,
+  stream?: MediaStream
 ) {
   switch (type) {
     case "VideoStream": {
@@ -28,9 +29,9 @@ export default function setupInputStream(
       }
       return {
         video,
-        inputStream: inputStreamFactory.createLiveStream(
-          video as HTMLVideoElement
-        ),
+        inputStream:
+          stream ||
+          inputStreamFactory.createLiveStream(video as HTMLVideoElement),
       };
     }
     default:

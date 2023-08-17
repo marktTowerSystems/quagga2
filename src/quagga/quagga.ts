@@ -115,10 +115,12 @@ export default class Quagga {
     const { video, inputStream } = setupInputStream(
       inputType,
       this.getViewPort(),
-      InputStream
+      InputStream,
+      stream
     );
 
     if (inputType === "LiveStream" && video) {
+      console.log("README stream", stream);
       if (stream) {
         console.log("SUPPLYING STREAM");
         CameraAccess.supplyStream(video, stream)
