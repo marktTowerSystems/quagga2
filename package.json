@@ -59,6 +59,7 @@
     "doc": "doc"
   },
   "scripts": {
+    "prepare": "npm run build && npm run clean",
     "check-types": "tsc",
     "precoverage": "npx rimraf .nyc_output coverage",
     "coverage:node": "// DOES NOT WORK YET // npx cross-env NODE_ENV=test BUILD_ENV=development nyc --no-clean ts-mocha -p test/tsconfig.json src/**/test/node/*.spec.* src/**/test/*.spec.*",
@@ -73,18 +74,19 @@
     "test:require": "mocha test/test-require",
     "test:module": "npm run test:require && npm run test:import",
     "test": "npm run cypress:run && npx cross-env NODE_ENV=test BUILD_ENV=development ts-mocha -p test/tsconfig.json src/**/test/node/*.spec.* src/**/test/*.spec.* test/integration/integration.spec.ts",
-    "build:dev": "npx cross-env NODE_ENV=development BUILD_ENV=development webpack --config configs/webpack.config.js",
-    "build:prod": "npx cross-env NODE_ENV=production BUILD_ENV=production webpack --config configs/webpack.config.min.js",
-    "build:node": "npx cross-env NODE_ENV=production BABEL_ENV=commonjs BUILD_ENV=node webpack --config configs/webpack.node.config.js",
-    "build-new": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider npm run build",
-    "build": "npm run check-types && npm run build:dev && npm run build:prod && npm run build:node",
+    "build:dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider npx cross-env NODE_ENV=development BUILD_ENV=development webpack --config configs/webpack.config.js",
+    "build:prod": "cross-env NODE_OPTIONS=--openssl-legacy-provider npx cross-env NODE_ENV=production BUILD_ENV=production webpack --config configs/webpack.config.min.js",
+    "build:node": "cross-env NODE_OPTIONS=--openssl-legacy-provider npx cross-env NODE_ENV=production BABEL_ENV=commonjs BUILD_ENV=node webpack --config configs/webpack.node.config.js",
+    "build-new": "cross-env NODE_OPTIONS=--openssl-legacy-provider npx cross-env NODE_OPTIONS=--openssl-legacy-provider npm run build",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider npm run check-types && npm run build:dev && npm run build:prod && npm run build:node",
     "watch": "npx cross-env BUILD_ENV=development webpack --watch",
     "lint": "eslint src",
-    "upgrade-deps": "npx npm-check-updates --doctor"
+    "upgrade-deps": "npx npm-check-updates --doctor",
+    "clean": "shopt -s extglob && rm -rf !(dist|lib|types|LICENSE|README.md|cypress.config.ts|package.json|tsconfig.json)"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ericblade/quagga2.git"
+    "url": "https://github.com/marktTowerSystems/quagga2.git"
   },
   "bugs": {
     "url": "https://github.com/ericblade/quagga2/issues"
