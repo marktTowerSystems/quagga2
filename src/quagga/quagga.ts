@@ -115,8 +115,7 @@ export default class Quagga {
     const { video, inputStream } = setupInputStream(
       inputType,
       this.getViewPort(),
-      InputStream,
-      stream
+      InputStream
     );
 
     if (inputType === "LiveStream" && video) {
@@ -124,7 +123,7 @@ export default class Quagga {
       if (stream) {
         console.log("SUPPLYING STREAM");
         CameraAccess.supplyStream(video, stream)
-          .then(() => inputStream.trigger("canrecord"))
+          // .then(() => inputStream.trigger("canrecord"))
           .catch((err) => callback(err));
       } else {
         CameraAccess.request(video, constraints)
