@@ -118,20 +118,6 @@ export default class Quagga {
       InputStream
     );
 
-    if (inputType === "LiveStream" && video) {
-      console.log("README stream", stream);
-      if (stream) {
-        console.log("SUPPLYING STREAM");
-        CameraAccess.supplyStream(video, stream)
-          .then(() => inputStream.trigger("canrecord"))
-          .catch((err) => callback(err));
-      } else {
-        CameraAccess.request(video, constraints)
-          .then(() => inputStream.trigger("canrecord"))
-          .catch((err) => callback(err));
-      }
-    }
-
     if (inputStream) {
       inputStream.setAttribute("preload", "auto");
       inputStream.setInputStream(this.context.config.inputStream);
@@ -139,6 +125,26 @@ export default class Quagga {
         "canrecord",
         this.canRecord.bind(undefined, callback)
       );
+    }
+
+    if (inputType === "LiveStream" && video) {
+      console.log("README stream", stream);
+      if (stream) {
+        console.log("SUPPLYING STREAM");
+        CameraAccess.supplyStream(video, stream)
+          .then(() => {
+            console.log("TRIGGERED CANRECORD");
+            inputStream.trigger("canrecord");
+          })
+          .catch((err) => {
+            console.log("ERROR SUPPLYING STREAM");
+            callback(err);
+          });
+      } else {
+        CameraAccess.request(video, constraints)
+          .then(() => inputStream.trigger("canrecord"))
+          .catch((err) => callback(err));
+      }
     }
 
     this.context.inputStream = inputStream;
